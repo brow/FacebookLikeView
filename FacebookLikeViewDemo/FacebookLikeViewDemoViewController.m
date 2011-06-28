@@ -50,11 +50,21 @@
 }
 
 - (void)facebookLikeViewDidLike:(FacebookLikeView *)aFacebookLikeView {
-    NSLog(@"like %@", aFacebookLikeView.href);
+    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Liked"
+                                                     message:@"You liked Yardsellr. Thanks!"
+                                                    delegate:self 
+                                           cancelButtonTitle:@"OK"
+                                           otherButtonTitles:nil] autorelease];
+    [alert show];
 }
 
 - (void)facebookLikeViewDidUnlike:(FacebookLikeView *)aFacebookLikeView {
-    NSLog(@"unlike %@", aFacebookLikeView.href);
+    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Unliked"
+                                                     message:@"You unliked Yardsellr. Where's the love?"
+                                                    delegate:self 
+                                           cancelButtonTitle:@"OK"
+                                           otherButtonTitles:nil] autorelease];
+    [alert show];
 }
 
 #pragma mark UIViewController methods

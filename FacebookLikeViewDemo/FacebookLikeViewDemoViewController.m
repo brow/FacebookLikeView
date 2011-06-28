@@ -7,7 +7,6 @@
 //
 
 #import "FacebookLikeViewDemoViewController.h"
-#import "Facebook+Extras.h"
 
 @interface FacebookLikeViewDemoViewController () <FacebookLikeViewDelegate, FBSessionDelegate>
 
@@ -18,8 +17,16 @@
 
 @synthesize facebookLikeView=_facebookLikeView;
 
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithCoder:aDecoder]) {
+        _facebook = [[Facebook alloc] initWithAppId:@"158575400878173"];
+    }
+    return self;
+}
+
 - (void)dealloc
 {
+    [_facebook release];
     [_facebookLikeView release];
     [super dealloc];
 }
@@ -39,7 +46,7 @@
 #pragma mark FacebookLikeViewDelegate methods
 
 - (void)facebookLikeViewRequiresLogin:(FacebookLikeView *)aFacebookLikeView {
-    [[Facebook sharedFacebook] authorize:[NSArray array] delegate:self];
+    [_facebook authorize:[NSArray array] delegate:self];
 }
 
 - (void)facebookLikeViewDidRender:(FacebookLikeView *)aFacebookLikeView {

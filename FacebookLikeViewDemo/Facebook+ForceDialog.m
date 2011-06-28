@@ -1,26 +1,18 @@
 //
-//  Facebook+Extras.m
+//  Facebook+ForceDialog.m
 //  Yardsellr
 //
 //  Created by Thomas Brow on 12/10/10.
 //  Copyright 2010 Tom Brow. All rights reserved.
 //
 
-#import "Facebook+Extras.h"
+#import "Facebook.h"
 
-static Facebook *facebook = nil;
-
-@implementation Facebook(Extras)
-
-+ (Facebook *)sharedFacebook {
-	if (!facebook)
-		facebook = [[Facebook alloc] initWithAppId:@"158575400878173"];
-	return facebook;
-}
+@implementation Facebook(ForceDialog)
 
 - (void)authorize:(NSArray *)permissions
          delegate:(id<FBSessionDelegate>)delegate {
-    
+    // Hack to force Facebook SDK to always use in-app dialog for auth
     [_permissions release];
     _permissions = [permissions retain];
     

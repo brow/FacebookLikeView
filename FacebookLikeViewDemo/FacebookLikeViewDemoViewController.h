@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FBConnect.h"
 #import "FacebookLikeView.h"
 
 @interface FacebookLikeViewDemoViewController : UIViewController {
-
+    Facebook *_facebook;
 }
 
 @property (nonatomic, retain) IBOutlet FacebookLikeView *facebookLikeView;

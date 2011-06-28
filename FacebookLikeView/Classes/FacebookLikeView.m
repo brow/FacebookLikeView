@@ -105,7 +105,7 @@
 #pragma mark UIWebViewDelegate methods
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    // Allow loading via loadHTMLString:baseURL:
+    // Allow loading Like button XFBML from file
     if ([request.URL.scheme isEqualToString:@"file"])
         return YES;
     

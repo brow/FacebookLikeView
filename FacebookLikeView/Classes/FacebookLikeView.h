@@ -15,15 +15,18 @@
     UIWebView *_webView;
 }
 
-// The URL to like
+// A delegate
+@property (assign) IBOutlet id<FacebookLikeViewDelegate> delegate;
+
+// The URL to like. This and the following properties map directly to XFBML attributes
+// described here: https://developers.facebook.com/docs/reference/plugins/like/
 @property (retain) NSURL *href;
 
-// The style of the like button and like count. Options: 'standard', 'button_count', and 'box_count'.
-// You should size your FacebookLikeView to the dimensions the layout you choose; details here:
-// https://developers.facebook.com/docs/reference/plugins/like/
+// The style of the Like button and like count. Options: 'standard', 'button_count', and 'box_count'.
+// You are responsible for sizing your FacebookLikeView appropriately for the layout you choose.
 @property (retain) NSString *layout;
 
-// Specifies whether to display profile photos below the button (standard layout only)
+// Specifies whether to display profile photos below the button ('standard' layout only)
 @property (assign) BOOL showFaces;
 
 // The verb to display on the button. Options: 'like', 'recommend' 
@@ -35,12 +38,8 @@
 // The color scheme for the like button. Options: 'light', 'dark'
 @property (retain) NSString *colorScheme;
 
-// A label for tracking referrals; details here:
-// https://developers.facebook.com/docs/reference/plugins/like/
+// A label for tracking referrals.
 @property (retain) NSString *ref;
-
-// A delegate
-@property (assign) IBOutlet id<FacebookLikeViewDelegate> delegate;
 
 // Load/reload the content of the web view. You should call this after changing any of the above parameters,
 // and whenever the user signs in or out of Facebook.
@@ -58,7 +57,7 @@
 
 @optional
 
-// Called when the web view finishes rendering its XFBML content
+// Called when the web view finishes rendering its XFBML content 
 - (void)facebookLikeViewDidRender:(FacebookLikeView *)aFacebookLikeView;
 
 // Called when the web view made a failed request or is redirected away from facebook.com

@@ -1,38 +1,38 @@
 <html>
-  <head>
-    <style type='text/css'>
-      * { -webkit-touch-callout: none; -webkit-user-select: none; }
-      body { margin:0px; }
-    </style>
-  </head>
-  <body>           
-    <div id='fb-root'></div>
-    <script src='http://connect.facebook.net/en_US/all.js#xfbml=1'></script>
-    <script>  
-      function forwardEvent(name) {
-        var iframe = document.createElement('iframe');
-        iframe.setAttribute('src', 'event:' + name);
-        document.documentElement.appendChild(iframe);
-        iframe.parentNode.removeChild(iframe);  
-      };
-      function beginForwardingEvent(name) {
-        FB.Event.subscribe(name, function(r) { forwardEvent(name); });
-      };
-      function beginForwardingEvents(names) {
-        for (var i = 0; i < names.length; i++) {
-          beginForwardingEvent(names[i]);
-        }
-      };
-      beginForwardingEvents(['edge.create', 'edge.remove', 'xfbml.render']);
-    </script>                                         
-    <fb:like  href='%@' 
-              send='false' 
-              layout='%@' 
-              width='%.0f' 
-              show_faces='%@' 
-              action='%@' 
-              colorscheme='%@' 
-              font='%@'
-              ></fb:like>
-  </body>
+    <head>
+        <style type='text/css'>
+            * { -webkit-touch-callout: none; -webkit-user-select: none; }
+            body { margin:0px; }
+        </style>
+    </head>
+    <body>                   
+        <div id='fb-root'></div>
+        <script src='http://connect.facebook.net/en_US/all.js#xfbml=1'></script>
+        <script>
+            function forwardEvent(name) {
+                var iframe = document.createElement('iframe');
+                iframe.setAttribute('src', 'event:' + name);
+                document.documentElement.appendChild(iframe);
+                iframe.parentNode.removeChild(iframe);  
+            };
+            function beginForwardingEvent(name) {
+                FB.Event.subscribe(name, function(r) { forwardEvent(name); });
+            };
+            function beginForwardingEvents(names) {
+                for (var i = 0; i < names.length; i++) {
+                    beginForwardingEvent(names[i]);
+                }
+            };
+            beginForwardingEvents(['edge.create', 'edge.remove', 'xfbml.render']);
+        </script>                                                                                   
+        <fb:like    href='%@' 
+                    send='false' 
+                    layout='%@' 
+                    width='%.0f' 
+                    show_faces='%@' 
+                    action='%@' 
+                    colorscheme='%@' 
+                    font='%@'
+                    ></fb:like>
+    </body>
 </html>

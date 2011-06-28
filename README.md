@@ -11,7 +11,7 @@ To see FacebookLikeView in action, build the included `FacebookLikeViewDemo` pro
 1. If haven't already installed the Facebook iOS SDK, add the files in the `FBConnect` directory to your project.
 2. Add the files in the `FacebookLikeView` directory to your Xcode project.
 3. Instantiate a FacebookLikeView programmatically or in a nib. Either way works!
-4. Set the URL to be liked, plus any [other attributes](https://developers.facebook.com/docs/reference/plugins/like/) you'd like to customize.
+4. Set the URL to be liked, plus any [other attributes](https://developers.facebook.com/docs/reference/plugins/like/) you'd like to customize. Make sure the `layout` you choose fits within the view's bounds.
     
         _facebookLikeView.href = [NSURL URLWithString:@"http://www.yardsellr.com"];
         _facebookLikeView.layout = @"button_count";
@@ -51,7 +51,7 @@ FacebookLikeView monitors like/unlike events using [event.subscribe](https://dev
 
 #Caveats
 
-FacebookLikeView is not supported by Facebook and could very conceivably break if certain undocumented parameters change. In particular, FacebookLikeView assumes that the URL of the Facebook login redirect does not change and that only content from domains `facebook.com` and `fbcdn.net` should ever be loaded.
+FacebookLikeView is not supported by Facebook and will break if certain undocumented parameters change. In particular, FacebookLikeView assumes that the URL of the Facebook login redirect does not change and that only content from domains `facebook.com` and `fbcdn.net` should ever be loaded.
 
 FacebookLikeView is also not guaranteed to work with future versions of the Facebook iOS SDK. To ensure compatibility, use the snapshot of the SDK contained in the `FBConnect` directory.
 

@@ -51,7 +51,7 @@ FacebookLikeView monitors like/unlike events using [event.subscribe](https://dev
 
 #Caveats
 
-FacebookLikeView is not supported by Facebook and could very conceivably break if certain undocumented parameters change. In particular, FacebookLikeView assumes that the URL of the Facebook login redirect does not change and that only content from domains `facebook.com` and `fbcdn.net` should ever be loaded.
+FacebookLikeView is not supported by Facebook and will break if certain undocumented parameters change. In particular, FacebookLikeView assumes that the URL of the Facebook login redirect does not change and that only content from domains `facebook.com` and `fbcdn.net` should ever be loaded.
 
 FacebookLikeView is also not guaranteed to work with future versions of the Facebook iOS SDK. To ensure compatibility, use the snapshot of the SDK contained in the `FBConnect` directory.
 

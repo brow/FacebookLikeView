@@ -41,6 +41,32 @@ To avoid showing the Like button before it's completely rendered, try hiding you
 
     - (void)facebookLikeViewDidRender:(FacebookLikeView *)aFacebookLikeView;
     
+#Staying Logged In
+Since the shared cookie store in an iOS application is cleared whenever the app terminates, FacebookLikeView is liable to prompt the user to log in multiple times over multiple uses of the app. If you'd rather have the user log in just once, you need to persist cookies between launches.
+
+Here's one way to implement that in the application delegate:
+    
+    #define SavedHTTPCookiesKey @"SavedHTTPCookies"
+    
+    - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+    {
+        NSData *cookiesData = [[NSUserDefaults standardUserDefaults]
+                                objectForKey:SavedHTTPCookiesKey];
+        if (cookiesData) {
+            NSArray *cookies = [NSKeyedUnarchiver unarchiveObjectWithData:cookiesData];
+            for (NSHTTPCookie *cookie in cookies)
+                [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+        }
+        ...
+    }
+    
+    - (void)applicationDidEnterBackground:(UIApplication *)application {
+        NSData *cookiesData = [NSKeyedArchiver archivedDataWithRootObject:
+                               [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]];
+        [[NSUserDefaults standardUserDefaults] setObject:cookiesData
+                                                  forKey:SavedHTTPCookiesKey];
+    }
+    
 #How It Works
 
 FacebookLikeView is just a UIWebView that contains the same XFMBL one would use to display a Like button in a web-based application. Since FacebookLikeView shares cookies with all other UIWebViews in your app, a user that has already signed in using Facebook's in-app auth dialog does not need to sign in again to use this Like button. FacebookLikeView does _not_ have access to cookies owned by Safari or the Facebook app, so it monkeypatches the Facebook iOS SDK to never use those apps for auth. 

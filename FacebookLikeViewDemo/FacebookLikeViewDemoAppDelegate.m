@@ -8,7 +8,8 @@
 
 #import "FacebookLikeViewDemoAppDelegate.h"
 #import "FacebookLikeViewDemoViewController.h"
-#import "Facebook+Extras.h"
+
+#define SavedHTTPCookiesKey @"SavedHTTPCookies"
 
 @implementation FacebookLikeViewDemoAppDelegate
 
@@ -19,12 +20,26 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
-     
+    //Restore cookies
+    NSData *cookiesData = [[NSUserDefaults standardUserDefaults] objectForKey:SavedHTTPCookiesKey];
+    if (cookiesData) {
+        NSArray *cookies = [NSKeyedUnarchiver unarchiveObjectWithData:cookiesData];
+        for (NSHTTPCookie *cookie in cookies)
+            [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+    }
+    
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     return YES;
 }
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    // Save cookies
+    NSData *cookiesData = [NSKeyedArchiver archivedDataWithRootObject:[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]];
+    [[NSUserDefaults standardUserDefaults] setObject:cookiesData
+                                              forKey:SavedHTTPCookiesKey];
+}
+
 
 - (void)dealloc
 {

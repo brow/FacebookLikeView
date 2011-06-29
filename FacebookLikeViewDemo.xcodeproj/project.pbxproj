@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D307EF6213BB98A6007D866B /* Facebook+ForceDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D307EF6113BB98A6007D866B /* Facebook+ForceDialog.m */; };
 		D32BC59413B969FC0069C39F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D32BC59313B969FC0069C39F /* UIKit.framework */; };
 		D32BC59613B969FC0069C39F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D32BC59513B969FC0069C39F /* Foundation.framework */; };
 		D32BC59813B969FC0069C39F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D32BC59713B969FC0069C39F /* CoreGraphics.framework */; };
@@ -29,10 +30,10 @@
 		D32BC5E413B96AAA0069C39F /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5D513B96AAA0069C39F /* SBJsonBase.m */; };
 		D32BC5E513B96AAA0069C39F /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5D713B96AAA0069C39F /* SBJsonParser.m */; };
 		D32BC5E613B96AAA0069C39F /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5D913B96AAA0069C39F /* SBJsonWriter.m */; };
-		D32BC5EA13B96AB90069C39F /* Facebook+ForceDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5E913B96AB90069C39F /* Facebook+ForceDialog.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D307EF6113BB98A6007D866B /* Facebook+ForceDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Facebook+ForceDialog.m"; sourceTree = "<group>"; };
 		D32BC58F13B969FC0069C39F /* FacebookLikeViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FacebookLikeViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D32BC59313B969FC0069C39F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D32BC59513B969FC0069C39F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -73,7 +74,6 @@
 		D32BC5D713B96AAA0069C39F /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		D32BC5D813B96AAA0069C39F /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		D32BC5D913B96AAA0069C39F /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
-		D32BC5E913B96AB90069C39F /* Facebook+ForceDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Facebook+ForceDialog.m"; path = "FacebookLikeViewDemo/Facebook+ForceDialog.m"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,7 +128,6 @@
 				D32BC5A813B969FC0069C39F /* FacebookLikeViewDemoViewController.h */,
 				D32BC5A913B969FC0069C39F /* FacebookLikeViewDemoViewController.m */,
 				D32BC5AB13B969FC0069C39F /* FacebookLikeViewDemoViewController.xib */,
-				D32BC5E913B96AB90069C39F /* Facebook+ForceDialog.m */,
 				D32BC59A13B969FC0069C39F /* Supporting Files */,
 			);
 			path = FacebookLikeViewDemo;
@@ -157,6 +156,7 @@
 		D32BC5BC13B96AAA0069C39F /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D307EF6113BB98A6007D866B /* Facebook+ForceDialog.m */,
 				D32BC5BD13B96AAA0069C39F /* FacebookLikeView.h */,
 				D32BC5BE13B96AAA0069C39F /* FacebookLikeView.m */,
 			);
@@ -288,7 +288,7 @@
 				D32BC5E413B96AAA0069C39F /* SBJsonBase.m in Sources */,
 				D32BC5E513B96AAA0069C39F /* SBJsonParser.m in Sources */,
 				D32BC5E613B96AAA0069C39F /* SBJsonWriter.m in Sources */,
-				D32BC5EA13B96AB90069C39F /* Facebook+ForceDialog.m in Sources */,
+				D307EF6213BB98A6007D866B /* Facebook+ForceDialog.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

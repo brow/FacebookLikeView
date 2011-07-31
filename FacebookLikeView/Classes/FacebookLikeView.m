@@ -36,14 +36,20 @@
 
 - (void)dealloc
 {
-    [_webView release];
     [_href release];
     [_layout release];
     [_action release];
     [_font release];
     [_colorScheme release];
     [_ref release];
+    
     [super dealloc];
+    
+    // UIWebView will cause a crash if dealloc'd on a non-main thread, so release
+    // it after [super dealloc] and on the main thread
+    [_webView performSelectorOnMainThread:@selector(release) 
+                               withObject:nil 
+                            waitUntilDone:YES];
 }
 
 - (void)initCommon {

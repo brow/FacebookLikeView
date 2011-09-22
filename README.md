@@ -42,7 +42,7 @@ To avoid showing the Like button before it's completely rendered, try hiding you
     - (void)facebookLikeViewDidRender:(FacebookLikeView *)aFacebookLikeView;
     
 #Staying Logged In
-Since the shared cookie store in an iOS application is cleared whenever the app terminates, FacebookLikeView is liable to prompt the user to log in multiple times over multiple uses of the app. If you'd rather have the user log in just once, you need to persist cookies between launches.
+Since the shared cookie store in an iOS application [is not guaranteed to persist](http://stackoverflow.com/questions/5837702/nshttpcookiestorage-state-not-saved-on-app-exit-any-definitive-knowledge-documen) when the app terminates, FacebookLikeView is liable to prompt the user to log in multiple times over multiple uses of the app. If you'd rather have the user log in just once, you need to persist cookies between launches.
 
 Here's one way to implement that in the application delegate:
     

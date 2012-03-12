@@ -69,7 +69,7 @@ Here's one way to implement that in the application delegate:
     
 #How It Works
 
-FacebookLikeView is just a UIWebView that contains the same XFMBL one would use to display a Like button in a web-based application. Since FacebookLikeView shares cookies with all other UIWebViews in your app, a user that has already signed in using Facebook's in-app auth dialog does not need to sign in again to use this Like button. FacebookLikeView does _not_ have access to cookies owned by Safari or the Facebook app, so it monkeypatches the Facebook iOS SDK to never use those apps for auth. 
+FacebookLikeView is just a UIWebView that contains the same XFBML one would use to display a Like button in a web-based application. Since FacebookLikeView shares cookies with all other UIWebViews in your app, a user that has already signed in using Facebook's in-app auth dialog does not need to sign in again to use this Like button. FacebookLikeView does _not_ have access to cookies owned by Safari or the Facebook app, so it monkeypatches the Facebook iOS SDK to never use those apps for auth. 
 
 Unlike a plain UIWebView, FacebookLikeView does not allow itself be redirected away from the Like button. If redirected to the Facebook login page, it ignores the redirect and calls the delegate method `facebookLikeViewRequiresLogin:` so that you may present the native login dialog instead.
 

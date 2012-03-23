@@ -6,7 +6,12 @@
 //  Copyright 2010 Tom Brow. All rights reserved.
 //
 
+#import <objc/message.h>
 #import "Facebook.h"
+
+// Suppress the warning in Xcode 4.3+ that occurs when overriding in a category
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
 
 @implementation Facebook(ForceDialog)
 
@@ -23,3 +28,5 @@
 
 @end
 
+
+#pragma clang diagnostic pop

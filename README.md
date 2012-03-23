@@ -42,7 +42,7 @@ To avoid showing the Like button before it's completely rendered, try hiding you
     - (void)facebookLikeViewDidRender:(FacebookLikeView *)aFacebookLikeView;
     
 #Staying Logged In
-Since the shared cookie store in an iOS application is cleared whenever the app terminates, FacebookLikeView is liable to prompt the user to log in multiple times over multiple uses of the app. If you'd rather have the user log in just once, you need to persist cookies between launches.
+Since the shared cookie store in an iOS application [is not guaranteed to persist](http://stackoverflow.com/questions/5837702/nshttpcookiestorage-state-not-saved-on-app-exit-any-definitive-knowledge-documen) when the app terminates, FacebookLikeView is liable to prompt the user to log in multiple times over multiple uses of the app. If you'd rather have the user log in just once, you need to persist cookies between launches.
 
 Here's one way to implement that in the application delegate:
     
@@ -69,7 +69,7 @@ Here's one way to implement that in the application delegate:
     
 #How It Works
 
-FacebookLikeView is just a UIWebView that contains the same XFMBL one would use to display a Like button in a web-based application. Since FacebookLikeView shares cookies with all other UIWebViews in your app, a user that has already signed in using Facebook's in-app auth dialog does not need to sign in again to use this Like button. FacebookLikeView does _not_ have access to cookies owned by Safari or the Facebook app, so it monkeypatches the Facebook iOS SDK to never use those apps for auth. 
+FacebookLikeView is just a UIWebView that contains the same XFBML one would use to display a Like button in a web-based application. Since FacebookLikeView shares cookies with all other UIWebViews in your app, a user that has already signed in using Facebook's in-app auth dialog does not need to sign in again to use this Like button. FacebookLikeView does _not_ have access to cookies owned by Safari or the Facebook app, so it monkeypatches the Facebook iOS SDK to never use those apps for auth. 
 
 Unlike a plain UIWebView, FacebookLikeView does not allow itself be redirected away from the Like button. If redirected to the Facebook login page, it ignores the redirect and calls the delegate method `facebookLikeViewRequiresLogin:` so that you may present the native login dialog instead.
 

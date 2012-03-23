@@ -155,7 +155,10 @@
 #pragma mark UIView methods
 
 - (void)layoutSubviews {
-    _webView.frame = self.bounds;
+    // Due to an apparent iOS bug, layoutSubviews is sometimes called outside the main thread.
+    // See https://devforums.apple.com/message/575760#575760
+    if ([NSThread isMainThread])
+        _webView.frame = self.bounds;
 }
 
 @end

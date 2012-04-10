@@ -30,12 +30,16 @@ static NSString* kLogin = @"oauth";
 static NSString* kSDK = @"ios";
 static NSString* kSDKVersion = @"2";
 
+static NSString *requestFinishedKeyPath = @"state";
+static void *finishedContext = @"finishedContext";
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 @interface Facebook ()
 
 // private properties
 @property(nonatomic, retain) NSArray* permissions;
+@property(nonatomic, copy) NSString* appId;
 
 @end
 
@@ -47,21 +51,55 @@ static NSString* kSDKVersion = @"2";
          expirationDate = _expirationDate,
         sessionDelegate = _sessionDelegate,
             permissions = _permissions,
-             localAppId = _localAppId;
+        urlSchemeSuffix = _urlSchemeSuffix,
+                  appId = _appId;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // private
 
 
+- (id)initWithAppId:(NSString *)appId
+        andDelegate:(id<FBSessionDelegate>)delegate {
+  self = [self initWithAppId:appId urlSchemeSuffix:nil andDelegate:delegate];
+  return self;
+}
+
 /**
  * Initialize the Facebook object with application ID.
+ *
+ * @param appId the facebook app id
+ * @param urlSchemeSuffix
+ *   urlSchemeSuffix is a string of lowercase letters that is
+ *   appended to the base URL scheme used for SSO. For example,
+ *   if your facebook ID is "350685531728" and you set urlSchemeSuffix to
+ *   "abcd", the Facebook app will expect your application to bind to
+ *   the following URL scheme: "fb350685531728abcd".
+ *   This is useful if your have multiple iOS applications that
+ *   share a single Facebook application id (for example, if you
+ *   have a free and a paid version on the same app) and you want
+ *   to use SSO with both apps. Giving both apps different
+ *   urlSchemeSuffix values will allow the Facebook app to disambiguate
+ *   their URL schemes and always redirect the user back to the
+ *   correct app, even if both the free and the app is installed
+ *   on the device.
+ *   urlSchemeSuffix is supported on version 3.4.1 and above of the Facebook
+ *   app. If the user has an older version of the Facebook app
+ *   installed and your app uses urlSchemeSuffix parameter, the SDK will
+ *   proceed as if the Facebook app isn't installed on the device
+ *   and redirect the user to Safari.
+ * @param delegate the FBSessionDelegate
  */
-- (id)initWithAppId:(NSString *)app_id {
+- (id)initWithAppId:(NSString *)appId
+    urlSchemeSuffix:(NSString *)urlSchemeSuffix
+        andDelegate:(id<FBSessionDelegate>)delegate {
+  
   self = [super init];
   if (self) {
-    [_appId release];
-    _appId = [app_id copy];
+    _requests = [[NSMutableSet alloc] init];
+    self.appId = appId;
+    self.sessionDelegate = delegate;
+    self.urlSchemeSuffix = urlSchemeSuffix;
   }
   return self;
 }
@@ -70,15 +108,31 @@ static NSString* kSDKVersion = @"2";
  * Override NSObject : free the space
  */
 - (void)dealloc {
+  for (FBRequest* _request in _requests) {
+    [_request removeObserver:self forKeyPath:requestFinishedKeyPath];
+  }
   [_accessToken release];
   [_expirationDate release];
-  [_request release];
+  [_requests release];
   [_loginDialog release];
   [_fbDialog release];
   [_appId release];
   [_permissions release];
-  [_localAppId release];
+  [_urlSchemeSuffix release];
   [super dealloc];
+}
+
+- (void)invalidateSession {
+  self.accessToken = nil;
+  self.expirationDate = nil;
+    
+  NSHTTPCookieStorage* cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+  NSArray* facebookCookies = [cookies cookiesForURL:
+                                [NSURL URLWithString:@"http://login.facebook.com"]];
+    
+  for (NSHTTPCookie* cookie in facebookCookies) {
+    [cookies deleteCookie:cookie];
+  }
 }
 
 /**
@@ -106,13 +160,33 @@ static NSString* kSDKVersion = @"2";
     [params setValue:self.accessToken forKey:@"access_token"];
   }
 
-  [_request release];
-  _request = [[FBRequest getRequestWithParams:params
-                                   httpMethod:httpMethod
-                                     delegate:delegate
-                                   requestURL:url] retain];
+  FBRequest* _request = [FBRequest getRequestWithParams:params
+                                             httpMethod:httpMethod
+                                               delegate:delegate
+                                             requestURL:url];
+  [_requests addObject:_request];
+  [_request addObserver:self forKeyPath:requestFinishedKeyPath options:0 context:finishedContext];
   [_request connect];
   return _request;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+  if (context == finishedContext) {
+    FBRequest* _request = (FBRequest*)object;
+    FBRequestState requestState = [_request state];
+    if (requestState == kFBRequestStateError) {
+      [self invalidateSession];
+      if ([self.sessionDelegate respondsToSelector:@selector(fbSessionInvalidated)]) {
+        [self.sessionDelegate fbSessionInvalidated];
+      }
+    }
+    if (requestState == kFBRequestStateComplete || requestState == kFBRequestStateError) {
+      [_request removeObserver:self forKeyPath:requestFinishedKeyPath];
+      [_requests removeObject:_request];
+    }
+  } else {
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+  }
 }
 
 /**
@@ -121,7 +195,7 @@ static NSString* kSDKVersion = @"2";
 - (NSString *)getOwnBaseUrl {
   return [NSString stringWithFormat:@"fb%@%@://authorize",
           _appId,
-          _localAppId ? _localAppId : @""];
+          _urlSchemeSuffix ? _urlSchemeSuffix : @""];
 }
 
 /**
@@ -134,7 +208,7 @@ static NSString* kSDKVersion = @"2";
                                  @"user_agent", @"type",
                                  kRedirectURL, @"redirect_uri",
                                  @"touch", @"display",
-                                 kSDKVersion, @"sdk",
+                                 kSDK, @"sdk",
                                  nil];
 
   NSString *loginDialogURL = [kDialogBaseURL stringByAppendingString:kLogin];
@@ -144,8 +218,8 @@ static NSString* kSDKVersion = @"2";
     [params setValue:scope forKey:@"scope"];
   }
 
-  if (_localAppId) {
-    [params setValue:_localAppId forKey:@"local_client_id"];
+  if (_urlSchemeSuffix) {
+    [params setValue:_urlSchemeSuffix forKey:@"local_client_id"];
   }
   
   // If the device is running a version of iOS that supports multitasking,
@@ -160,7 +234,7 @@ static NSString* kSDKVersion = @"2";
   if ([device respondsToSelector:@selector(isMultitaskingSupported)] && [device isMultitaskingSupported]) {
     if (tryFBAppAuth) {
       NSString *scheme = kFBAppAuthURLScheme;
-      if (_localAppId) {
+      if (_urlSchemeSuffix) {
         scheme = [scheme stringByAppendingString:@"2"];
       }
       NSString *urlPrefix = [NSString stringWithFormat:@"%@://%@", scheme, kFBAppAuthURLPath];
@@ -209,13 +283,6 @@ static NSString* kSDKVersion = @"2";
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //public
 
-- (void)authorize:(NSArray *)permissions
-         delegate:(id<FBSessionDelegate>)delegate {
-  [self authorize:permissions
-         delegate:delegate
-       localAppId:nil];
-}
-
 /**
  * Starts a dialog which prompts the user to log in to Facebook and grant
  * the requested permissions to the application.
@@ -244,33 +311,9 @@ static NSString* kSDKVersion = @"2";
  * @param delegate
  *            Callback interface for notifying the calling application when
  *            the user has logged in.
- * @param localAppId
- *            localAppId is a string of lowercase letters that is
- *            appended to the base URL scheme used for SSO. For example,
- *            if your facebook ID is "350685531728" and you set localAppId to
- *            "abcd", the Facebook app will expect your application to bind to
- *            the following URL scheme: "fb350685531728abcd".
- *            This is useful if your have multiple iOS applications that
- *            share a single Facebook application id (for example, if you
- *            have a free and a paid version on the same app) and you want
- *            to use SSO with both apps. Giving both apps different
- *            localAppId values will allow the Facebook app to disambiguate
- *            their URL schemes and always redirect the user back to the
- *            correct app, even if both the free and the app is installed
- *            on the device.
- *            localAppId is supported on version 3.4.1 and above of the Facebook
- *            app. If the user has an older version of the Facebook app
- *            installed and your app uses localAppId parameter, the SDK will
- *            proceed as if the Facebook app isn't installed on the device
- *            and redirect the user to Safari.
  */
-- (void)authorize:(NSArray *)permissions
-         delegate:(id<FBSessionDelegate>)delegate
-       localAppId:(NSString *)localAppId {
-  self.localAppId = localAppId;
+- (void)authorize:(NSArray *)permissions {
   self.permissions = permissions;
-
-  _sessionDelegate = delegate;
 
   [self authorizeWithFBAppAuth:YES safariAuth:YES];
 }
@@ -356,43 +399,18 @@ static NSString* kSDKVersion = @"2";
 
 /**
  * Invalidate the current user session by removing the access token in
- * memory, clearing the browser cookie, and calling auth.expireSession
- * through the API.
+ * memory and clearing the browser cookie.
  *
  * Note that this method dosen't unauthorize the application --
- * it just invalidates the access token. To unauthorize the application,
+ * it just removes the access token. To unauthorize the application,
  * the user must remove the app in the app settings page under the privacy
  * settings screen on facebook.com.
- *
- * @param delegate
- *            Callback interface for notifying the calling application when
- *            the application has logged out
  */
-- (void)logout:(id<FBSessionDelegate>)delegate {
-
-  _sessionDelegate = delegate;
-
-  NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
-  [self requestWithMethodName:@"auth.expireSession"
-                    andParams:params andHttpMethod:@"GET"
-                  andDelegate:nil];
-
-  [params release];
-  [_accessToken release];
-  _accessToken = nil;
-  [_expirationDate release];
-  _expirationDate = nil;
-
-  NSHTTPCookieStorage* cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-  NSArray* facebookCookies = [cookies cookiesForURL:
-    [NSURL URLWithString:@"http://login.facebook.com"]];
-
-  for (NSHTTPCookie* cookie in facebookCookies) {
-    [cookies deleteCookie:cookie];
-  }
-
+- (void)logout {
+  [self invalidateSession];
+    
   if ([self.sessionDelegate respondsToSelector:@selector(fbDidLogout)]) {
-    [_sessionDelegate fbDidLogout];
+    [self.sessionDelegate fbDidLogout];
   }
 }
 
@@ -631,7 +649,7 @@ static NSString* kSDKVersion = @"2";
   self.accessToken = token;
   self.expirationDate = expirationDate;
   if ([self.sessionDelegate respondsToSelector:@selector(fbDidLogin)]) {
-    [_sessionDelegate fbDidLogin];
+    [self.sessionDelegate fbDidLogin];
   }
 
 }
@@ -641,20 +659,8 @@ static NSString* kSDKVersion = @"2";
  */
 - (void)fbDialogNotLogin:(BOOL)cancelled {
   if ([self.sessionDelegate respondsToSelector:@selector(fbDidNotLogin:)]) {
-    [_sessionDelegate fbDidNotLogin:cancelled];
+    [self.sessionDelegate fbDidNotLogin:cancelled];
   }
-}
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-//FBRequestDelegate
-
-/**
- * Handle the auth.ExpireSession api call failure
- */
-- (void)request:(FBRequest*)request didFailWithError:(NSError*)error{
-  NSLog(@"Failed to expire the session");
 }
 
 @end

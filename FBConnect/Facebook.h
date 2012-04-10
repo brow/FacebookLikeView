@@ -29,31 +29,31 @@
   NSString* _accessToken;
   NSDate* _expirationDate;
   id<FBSessionDelegate> _sessionDelegate;
-  FBRequest* _request;
+  NSMutableSet* _requests;
   FBDialog* _loginDialog;
   FBDialog* _fbDialog;
   NSString* _appId;
-  NSString* _localAppId;
+  NSString* _urlSchemeSuffix;
   NSArray* _permissions;
 }
 
 @property(nonatomic, copy) NSString* accessToken;
 @property(nonatomic, copy) NSDate* expirationDate;
 @property(nonatomic, assign) id<FBSessionDelegate> sessionDelegate;
-@property(nonatomic, copy) NSString* localAppId;
+@property(nonatomic, copy) NSString* urlSchemeSuffix;
 
-- (id)initWithAppId:(NSString *)app_id;
+- (id)initWithAppId:(NSString *)appId
+        andDelegate:(id<FBSessionDelegate>)delegate;
 
-- (void)authorize:(NSArray *)permissions
-         delegate:(id<FBSessionDelegate>)delegate;
+- (id)initWithAppId:(NSString *)appId
+    urlSchemeSuffix:(NSString *)urlSchemeSuffix
+        andDelegate:(id<FBSessionDelegate>)delegate;
 
-- (void)authorize:(NSArray *)permissions
-         delegate:(id<FBSessionDelegate>)delegate
-       localAppId:(NSString *)localAppId;
+- (void)authorize:(NSArray *)permissions;
 
 - (BOOL)handleOpenURL:(NSURL *)url;
 
-- (void)logout:(id<FBSessionDelegate>)delegate;
+- (void)logout;
 
 - (FBRequest*)requestWithParams:(NSMutableDictionary *)params
                     andDelegate:(id <FBRequestDelegate>)delegate;
@@ -109,5 +109,14 @@
  * Called when the user logged out.
  */
 - (void)fbDidLogout;
+
+/**
+ * Called when the current session has expired. This might happen when:
+ *  - the access token expired 
+ *  - the app has been disabled
+ *  - the user revoked the app's permissions
+ *  - the user changed his or her password
+ */
+- (void)fbSessionInvalidated;
 
 @end

@@ -19,7 +19,7 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
-        _facebook = [[Facebook alloc] initWithAppId:@"158575400878173"];
+        _facebook = [[Facebook alloc] initWithAppId:@"158575400878173" andDelegate:self];
     }
     return self;
 }
@@ -46,7 +46,7 @@
 #pragma mark FacebookLikeViewDelegate methods
 
 - (void)facebookLikeViewRequiresLogin:(FacebookLikeView *)aFacebookLikeView {
-    [_facebook authorize:[NSArray array] delegate:self];
+    [_facebook authorize:[NSArray array]];
 }
 
 - (void)facebookLikeViewDidRender:(FacebookLikeView *)aFacebookLikeView {

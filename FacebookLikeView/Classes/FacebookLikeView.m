@@ -139,7 +139,7 @@
     }
     
     // Block redirects to the Facebook login page and notify the delegate that we've done so
-    else if ([request.URL.lastPathComponent isEqualToString:@"login.php"]) {
+    else if ([request.URL.path.lastPathComponent isEqualToString:@"login.php"]) {
         [_delegate facebookLikeViewRequiresLogin:self];
         return NO;
     }

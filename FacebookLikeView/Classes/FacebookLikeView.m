@@ -91,7 +91,7 @@
                       self.font,
                       self.frame.size.height];
     
-    [_webView loadHTMLString:html baseURL:[NSURL URLWithString:@"file:///FacebookLikeView.html"]];
+    [_webView loadHTMLString:html baseURL:[NSURL URLWithString:@"http://localhost"]];
 }
 
 - (void)didFailLoadWithError:(NSError *)error {
@@ -112,7 +112,7 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     // Allow loading Like button XFBML from file
-    if ([request.URL.scheme isEqualToString:@"file"])
+    if ([request.URL.host isEqual:@"localhost"])
         return YES;
     
     // Allow loading about:blank, etc.

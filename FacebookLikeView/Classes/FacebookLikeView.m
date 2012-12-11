@@ -140,8 +140,8 @@
     }
     
     // Block redirects to the Facebook login page and notify the delegate that we've done so
-    else if ([request.URL.path isEqualToString:@"/plugins/like/connect"] &&
-             [request.HTTPBody.UTF8String hasPrefix:@"lsd"]) {
+    else if ([request.URL.path isEqualToString:@"/dialog/plugin.optin"] ||
+             ([request.URL.path isEqualToString:@"/plugins/like/connect"] && [request.HTTPBody.UTF8String hasPrefix:@"lsd"])) {
         [_delegate facebookLikeViewRequiresLogin:self];
         return NO;
     }

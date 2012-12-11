@@ -68,7 +68,7 @@
         }
     
     // Default settings
-    self.href = nil;
+    self.href = [NSURL URLWithString:@"http://example.com"];
     self.layout = @"standard";
     self.showFaces = YES;
     self.action = @"like";
@@ -92,7 +92,7 @@
                       self.font,
                       self.frame.size.height];
     
-    [_webView loadHTMLString:html baseURL:[NSURL URLWithString:@"http://localhost"]];
+    [_webView loadHTMLString:html baseURL:self.href];
 }
 
 - (void)didFailLoadWithError:(NSError *)error {
@@ -113,7 +113,7 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     // Allow loading Like button XFBML from file
-    if ([request.URL.host isEqual:@"localhost"])
+    if ([request.URL.host isEqual:self.href.host])
         return YES;
     
     // Allow loading about:blank, etc.

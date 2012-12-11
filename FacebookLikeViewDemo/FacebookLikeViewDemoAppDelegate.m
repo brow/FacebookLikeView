@@ -28,15 +28,6 @@
             [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
     }
     
-    // This hack makes UIWebView send a user-agent string that looks like desktop Safari rather than Mobile Safari.
-    // We need this because Facebook now renders a differently-sized Like button in mobile browsers, breaking 
-    // FacebookLikeView's appearance. This hack may cause problems if you also use UIWebView for something else.
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_1) AppleWebKit/534.48.3 (KHTML, like Gecko) Version/5.1 Safari/534.48.3", 
-                                @"UserAgent",
-                                nil];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
-    
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     return YES;

@@ -7,6 +7,7 @@
 //
 
 #import "FacebookLikeView.h"
+#import "NSData+Extras.h"
 
 @interface FacebookLikeView () <UIWebViewDelegate>
 
@@ -139,7 +140,8 @@
     }
     
     // Block redirects to the Facebook login page and notify the delegate that we've done so
-    else if ([request.URL.path.lastPathComponent isEqualToString:@"login.php"]) {
+    else if ([request.URL.path isEqualToString:@"/plugins/like/connect"] &&
+             [request.HTTPBody.UTF8String hasPrefix:@"lsd"]) {
         [_delegate facebookLikeViewRequiresLogin:self];
         return NO;
     }

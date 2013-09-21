@@ -31,7 +31,6 @@
 		D32BC5E513B96AAA0069C39F /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5D713B96AAA0069C39F /* SBJsonParser.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		D32BC5E613B96AAA0069C39F /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5D913B96AAA0069C39F /* SBJsonWriter.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		EA46D9B917EE4237001E32DC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA46D9B817EE4237001E32DC /* Default-568h@2x.png */; };
-		EABFE3351672C350004A7CF2 /* NSData+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = EABFE3341672C350004A7CF2 /* NSData+Extras.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,8 +76,6 @@
 		D32BC5D813B96AAA0069C39F /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		D32BC5D913B96AAA0069C39F /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		EA46D9B817EE4237001E32DC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		EABFE3331672C350004A7CF2 /* NSData+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Extras.h"; sourceTree = "<group>"; };
-		EABFE3341672C350004A7CF2 /* NSData+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Extras.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,8 +160,6 @@
 				D307EF6113BB98A6007D866B /* Facebook+ForceDialog.m */,
 				D32BC5BD13B96AAA0069C39F /* FacebookLikeView.h */,
 				D32BC5BE13B96AAA0069C39F /* FacebookLikeView.m */,
-				EABFE3331672C350004A7CF2 /* NSData+Extras.h */,
-				EABFE3341672C350004A7CF2 /* NSData+Extras.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -307,7 +302,6 @@
 				D32BC5E513B96AAA0069C39F /* SBJsonParser.m in Sources */,
 				D32BC5E613B96AAA0069C39F /* SBJsonWriter.m in Sources */,
 				D307EF6213BB98A6007D866B /* Facebook+ForceDialog.m in Sources */,
-				EABFE3351672C350004A7CF2 /* NSData+Extras.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

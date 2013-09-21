@@ -7,11 +7,18 @@
 //
 
 #import "FacebookLikeView.h"
-#import "NSData+Extras.h"
 
 @interface FacebookLikeView () <UIWebViewDelegate>
 
 @property (readonly) UIWebView *webView;
+
+@end
+
+@implementation NSData (UTF8String)
+
+- (NSString*)UTF8String {
+    return [[[NSString alloc] initWithData:self encoding:NSUTF8StringEncoding] autorelease];
+}
 
 @end
 

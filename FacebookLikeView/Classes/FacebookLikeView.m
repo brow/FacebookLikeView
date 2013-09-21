@@ -11,15 +11,11 @@
 
 @interface FacebookLikeView () <UIWebViewDelegate>
 
-- (void)initCommon;
+@property (readonly) UIWebView *webView;
 
 @end
 
-
 @implementation FacebookLikeView
-
-@synthesize href=_href, layout=_layout, showFaces=_showFaces, action=_action, font=_font, 
-    colorScheme=_colorScheme, ref=_ref, delegate=_delegate;
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -92,24 +88,24 @@
                       self.font,
                       self.frame.size.height];
     
-    [_webView loadHTMLString:html baseURL:self.href];
+    [self.webView loadHTMLString:html baseURL:self.href];
 }
 
 - (void)didFailLoadWithError:(NSError *)error {
-    if ([_delegate respondsToSelector:@selector(facebookLikeView:didFailLoadWithError:)])
-        [_delegate facebookLikeView:self didFailLoadWithError:error];
+    if ([self.delegate respondsToSelector:@selector(facebookLikeView:didFailLoadWithError:)])
+        [self.delegate facebookLikeView:self didFailLoadWithError:error];
 }
 
 - (void)didObserveFacebookEvent:(NSString *)fbEvent {
-    if ([fbEvent isEqualToString:@"edge.create"] && [_delegate respondsToSelector:@selector(facebookLikeViewDidLike:)])
-        [_delegate facebookLikeViewDidLike:self];
-    else if ([fbEvent isEqualToString:@"edge.remove"] && [_delegate respondsToSelector:@selector(facebookLikeViewDidUnlike:)])
-        [_delegate facebookLikeViewDidUnlike:self];
-    else if ([fbEvent isEqualToString:@"xfbml.render"] && [_delegate respondsToSelector:@selector(facebookLikeViewDidRender:)])
-        [_delegate facebookLikeViewDidRender:self];
+    if ([fbEvent isEqualToString:@"edge.create"] && [self.delegate respondsToSelector:@selector(facebookLikeViewDidLike:)])
+        [self.delegate facebookLikeViewDidLike:self];
+    else if ([fbEvent isEqualToString:@"edge.remove"] && [self.delegate respondsToSelector:@selector(facebookLikeViewDidUnlike:)])
+        [self.delegate facebookLikeViewDidUnlike:self];
+    else if ([fbEvent isEqualToString:@"xfbml.render"] && [self.delegate respondsToSelector:@selector(facebookLikeViewDidRender:)])
+        [self.delegate facebookLikeViewDidRender:self];
 }
 
-#pragma mark UIWebViewDelegate methods
+#pragma mark UIWebViewDelegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     // Allow loading Like button XFBML from file
@@ -142,7 +138,7 @@
     // Block redirects to the Facebook login page and notify the delegate that we've done so
     else if ([request.URL.path isEqualToString:@"/dialog/plugin.optin"] ||
              ([request.URL.path isEqualToString:@"/plugins/like/connect"] && [request.HTTPBody.UTF8String hasPrefix:@"lsd"])) {
-        [_delegate facebookLikeViewRequiresLogin:self];
+        [self.delegate facebookLikeViewRequiresLogin:self];
         return NO;
     }
     
@@ -154,13 +150,13 @@
     [self didFailLoadWithError:error];
 }
 
-#pragma mark UIView methods
+#pragma mark UIView
 
 - (void)layoutSubviews {
-    // Due to an apparent iOS bug, layoutSubviews is sometimes called outside the main thread.
+    // Due to an apparent iOS 4 bug, layoutSubviews is sometimes called outside the main thread.
     // See https://devforums.apple.com/message/575760#575760
     if ([NSThread isMainThread])
-        _webView.frame = self.bounds;
+        self.webView.frame = self.bounds;
 }
 
 @end

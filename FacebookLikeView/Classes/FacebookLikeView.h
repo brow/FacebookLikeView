@@ -10,10 +10,7 @@
 
 @protocol FacebookLikeViewDelegate;
 
-
-@interface FacebookLikeView : UIView {
-    UIWebView *_webView;
-}
+@interface FacebookLikeView : UIView
 
 // A delegate
 @property (assign) IBOutlet id<FacebookLikeViewDelegate> delegate;
@@ -46,7 +43,6 @@
 - (void)load;
 
 @end
-
 
 @protocol FacebookLikeViewDelegate <NSObject>
 

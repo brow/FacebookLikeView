@@ -52,7 +52,7 @@
 
 // Called when user taps Like button or "sign in" link when not logged in. Your implementation should present 
 // the user with a Facebook login dialog using either the Facebook iOS SDK or a separate web view. Once login 
-// is complete, you should refresh this view using [aFacebookLikeView load].
+// is complete, you should refresh FacebookLikeView using -[FacebookLikeView load].
 - (void)facebookLikeViewRequiresLogin:(FacebookLikeView *)aFacebookLikeView;
 
 @optional

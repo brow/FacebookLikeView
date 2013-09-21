@@ -1,9 +1,13 @@
 <html>
     <head>
         <style type='text/css'>
+            /* Don't allow selection or iOS contextual menus. */
             * { -webkit-touch-callout: none; -webkit-user-select: none; }
-            body { margin:0px; }
+            
+            /* Don't display prompt for comment after a Like. */
             .fb_edge_comment_widget { display: none !important; }
+            
+            body { margin:0px; }
         </style>
     </head>
     <body>                   
@@ -26,14 +30,14 @@
             };
             beginForwardingEvents(['edge.create', 'edge.remove', 'xfbml.render']);
         </script>                                                                                   
-        <fb:like    href='%@' 
-                    send='false' 
-                    layout='%@' 
-                    width='%.0f' 
-                    show_faces='%@' 
-                    action='%@' 
-                    colorscheme='%@' 
-                    font='%@'
-                    ></fb:like>
+        <fb:like href='%@'
+                 send='false'
+                 layout='%@'
+                 width='%.0f'
+                 show_faces='%@'
+                 action='%@'
+                 colorscheme='%@'
+                 font='%@'
+        ></fb:like>
     </body>
 </html>

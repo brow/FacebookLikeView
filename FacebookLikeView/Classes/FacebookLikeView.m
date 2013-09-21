@@ -40,13 +40,11 @@
     [_colorScheme release];
     [_ref release];
     
-    [super dealloc];
+    // According to SDK doc, UIWebView's delegate must be set to nil before the view is released.
+    _webView.delegate = nil;
+    [_webView release];
     
-    // UIWebView will cause a crash if dealloc'd on a non-main thread, so release
-    // it after [super dealloc] and on the main thread
-    [_webView performSelectorOnMainThread:@selector(release) 
-                               withObject:nil 
-                            waitUntilDone:YES];
+    [super dealloc];
 }
 
 - (void)initCommon {

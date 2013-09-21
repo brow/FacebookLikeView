@@ -11,8 +11,13 @@
 
 #define SavedHTTPCookiesKey @"SavedHTTPCookies"
 
-@implementation FacebookLikeViewDemoAppDelegate
+@interface FacebookLikeViewDemoAppDelegate ()
 
+@property (nonatomic, retain) IBOutlet FacebookLikeViewDemoViewController *viewController;
+
+@end
+
+@implementation FacebookLikeViewDemoAppDelegate
 
 @synthesize window=_window;
 
@@ -39,7 +44,6 @@
     [[NSUserDefaults standardUserDefaults] setObject:cookiesData
                                               forKey:SavedHTTPCookiesKey];
 }
-
 
 - (void)dealloc
 {

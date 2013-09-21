@@ -10,12 +10,6 @@
 
 @class FacebookLikeViewDemoViewController;
 
-@interface FacebookLikeViewDemoAppDelegate : NSObject <UIApplicationDelegate> {
-
-}
-
-@property (nonatomic, retain) IBOutlet UIWindow *window;
-
-@property (nonatomic, retain) IBOutlet FacebookLikeViewDemoViewController *viewController;
+@interface FacebookLikeViewDemoAppDelegate : NSObject <UIApplicationDelegate>
 
 @end

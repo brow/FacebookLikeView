@@ -7,15 +7,17 @@
 //
 
 #import "FacebookLikeViewDemoViewController.h"
+#import "FBConnect.h"
+#import "FacebookLikeView.h"
 
 @interface FacebookLikeViewDemoViewController () <FacebookLikeViewDelegate, FBSessionDelegate>
 
+@property (readonly) Facebook *facebook;
+@property (nonatomic, retain) IBOutlet FacebookLikeView *facebookLikeView;
+
 @end
 
-
 @implementation FacebookLikeViewDemoViewController
-
-@synthesize facebookLikeView=_facebookLikeView;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
@@ -31,7 +33,7 @@
     [super dealloc];
 }
 
-#pragma mark FBSessionDelegate methods
+#pragma mark FBSessionDelegate
 
 - (void)fbDidLogin {
 	self.facebookLikeView.alpha = 1;
@@ -43,10 +45,10 @@
     [self.facebookLikeView load];
 }
 
-#pragma mark FacebookLikeViewDelegate methods
+#pragma mark FacebookLikeViewDelegate
 
 - (void)facebookLikeViewRequiresLogin:(FacebookLikeView *)aFacebookLikeView {
-    [_facebook authorize:[NSArray array]];
+    [self.facebook authorize:[NSArray array]];
 }
 
 - (void)facebookLikeViewDidRender:(FacebookLikeView *)aFacebookLikeView {
@@ -74,7 +76,7 @@
     [alert show];
 }
 
-#pragma mark UIViewController methods
+#pragma mark UIViewController
 
 - (void)viewDidLoad
 {
@@ -83,7 +85,6 @@
     self.facebookLikeView.href = [NSURL URLWithString:@"http://www.yardsellr.com"];
     self.facebookLikeView.layout = @"button_count";
     self.facebookLikeView.showFaces = NO;
-    
     self.facebookLikeView.alpha = 0;
     [self.facebookLikeView load];
 }
@@ -91,6 +92,7 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+    
     self.facebookLikeView = nil;
 }
 

@@ -84,6 +84,7 @@
                                                      encoding:NSUTF8StringEncoding 
                                                         error:nil];
     NSString *html = [NSString stringWithFormat:htmlFormat,
+                      self.frame.size.width,
                       self.href.absoluteString,
                       self.layout,
                       self.frame.size.width,

@@ -7,6 +7,9 @@
             /* Don't display prompt for comment after a Like. */
             .fb_edge_comment_widget { display: none !important; }
             
+            /* Clip the Like button to the width of the view. */
+            .container { width: %.0fpx; overflow: hidden; }
+            
             body { margin:0px; }
         </style>
     </head>
@@ -29,15 +32,17 @@
                 }
             };
             beginForwardingEvents(['edge.create', 'edge.remove', 'xfbml.render']);
-        </script>                                                                                   
-        <fb:like href='%@'
-                 send='false'
-                 layout='%@'
-                 width='%.0f'
-                 show_faces='%@'
-                 action='%@'
-                 colorscheme='%@'
-                 font='%@'
-        ></fb:like>
+        </script>  
+        <div class="container">
+            <fb:like href='%@'
+                     send='false'
+                     layout='%@'
+                     width='%.0f'
+                     show_faces='%@'
+                     action='%@'
+                     colorscheme='%@'
+                     font='%@'
+            ></fb:like>
+        </div>
     </body>
 </html>

@@ -9,7 +9,7 @@
 #import <objc/message.h>
 #import "Facebook.h"
 
-// Suppress the warning in Xcode 4.3+ that occurs when overriding in a category
+// Suppress clang's warning about overriding in a category
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
 

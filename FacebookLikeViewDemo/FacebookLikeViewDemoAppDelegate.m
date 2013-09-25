@@ -13,7 +13,7 @@
 
 @interface FacebookLikeViewDemoAppDelegate ()
 
-@property (nonatomic, retain) IBOutlet FacebookLikeViewDemoViewController *viewController;
+@property (nonatomic, strong) IBOutlet FacebookLikeViewDemoViewController *viewController;
 
 @end
 
@@ -45,11 +45,5 @@
                                               forKey:SavedHTTPCookiesKey];
 }
 
-- (void)dealloc
-{
-    [_window release];
-    [_viewController release];
-    [super dealloc];
-}
 
 @end

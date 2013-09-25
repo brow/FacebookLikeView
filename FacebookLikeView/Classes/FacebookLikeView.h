@@ -13,30 +13,30 @@
 @interface FacebookLikeView : UIView
 
 // A delegate
-@property (assign) IBOutlet id<FacebookLikeViewDelegate> delegate;
+@property (unsafe_unretained) IBOutlet id<FacebookLikeViewDelegate> delegate;
 
 // The URL to like. This and the following properties map directly to XFBML attributes
 // described here: https://developers.facebook.com/docs/reference/plugins/like/
-@property (retain) NSURL *href;
+@property (strong, nonatomic) NSURL *href;
 
 // The style of the Like button and like count. Options: 'standard', 'button_count', and 'box_count'.
 // You are responsible for sizing your FacebookLikeView appropriately for the layout you choose.
-@property (retain) NSString *layout;
+@property (strong, nonatomic) NSString *layout;
 
 // Specifies whether to display profile photos below the button ('standard' layout only)
-@property (assign) BOOL showFaces;
+@property (assign, nonatomic) BOOL showFaces;
 
 // The verb to display on the button. Options: 'like', 'recommend' 
-@property (retain) NSString *action;
+@property (strong, nonatomic) NSString *action;
 
 // The font to display in the button. Options: 'arial', 'lucida grande', 'segoe ui', 'tahoma', 'trebuchet ms', 'verdana'
-@property (retain) NSString *font;
+@property (strong, nonatomic) NSString *font;
 
 // The color scheme for the like button. Options: 'light', 'dark'
-@property (retain) NSString *colorScheme;
+@property (strong, nonatomic) NSString *colorScheme;
 
 // A label for tracking referrals.
-@property (retain) NSString *ref;
+@property (strong, nonatomic) NSString *ref;
 
 // Load/reload the content of the web view. You should call this after changing any of the above parameters,
 // and whenever the user signs in or out of Facebook.

@@ -10,14 +10,14 @@
 
 @interface FacebookLikeView () <UIWebViewDelegate>
 
-@property (readonly) UIWebView *webView;
+@property (strong, nonatomic) UIWebView *webView;
 
 @end
 
 @implementation NSData (UTF8String)
 
 - (NSString*)UTF8String {
-    return [[[NSString alloc] initWithData:self encoding:NSUTF8StringEncoding] autorelease];
+    return [[NSString alloc] initWithData:self encoding:NSUTF8StringEncoding];
 }
 
 @end
@@ -40,29 +40,20 @@
 
 - (void)dealloc
 {
-    [_href release];
-    [_layout release];
-    [_action release];
-    [_font release];
-    [_colorScheme release];
-    [_ref release];
-    
     // According to SDK doc, UIWebView's delegate must be set to nil before the view is released.
-    _webView.delegate = nil;
-    [_webView release];
-    
-    [super dealloc];
+    self.webView.delegate = nil;
+
 }
 
 - (void)initCommon {
-    _webView = [[UIWebView alloc] init];
-    _webView.opaque = NO;
-    _webView.backgroundColor = [UIColor clearColor];
-    _webView.delegate = self;
-    [self addSubview:_webView];
+    self.webView = [[UIWebView alloc] init];
+    self.webView.opaque = NO;
+    self.webView.backgroundColor = [UIColor clearColor];
+    self.webView.delegate = self;
+    [self addSubview:self.webView];
     
     // Prevent web view from scrolling
-    for (UIScrollView *subview in _webView.subviews)
+    for (UIScrollView *subview in self.webView.subviews)
         if ([subview isKindOfClass:[UIScrollView class]]) {
             subview.scrollEnabled = NO;
             subview.bounces = NO;

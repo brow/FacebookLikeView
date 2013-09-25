@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D307EF6213BB98A6007D866B /* Facebook+ForceDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D307EF6113BB98A6007D866B /* Facebook+ForceDialog.m */; };
+		D307EF6213BB98A6007D866B /* Facebook+ForceDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D307EF6113BB98A6007D866B /* Facebook+ForceDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D32BC59413B969FC0069C39F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D32BC59313B969FC0069C39F /* UIKit.framework */; };
 		D32BC59613B969FC0069C39F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D32BC59513B969FC0069C39F /* Foundation.framework */; };
 		D32BC59813B969FC0069C39F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D32BC59713B969FC0069C39F /* CoreGraphics.framework */; };
@@ -19,17 +19,17 @@
 		D32BC5AD13B969FC0069C39F /* FacebookLikeViewDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D32BC5AB13B969FC0069C39F /* FacebookLikeViewDemoViewController.xib */; };
 		D32BC5DA13B96AAA0069C39F /* FacebookLikeView.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5BE13B96AAA0069C39F /* FacebookLikeView.m */; };
 		D32BC5DB13B96AAA0069C39F /* FacebookLikeView.html in Resources */ = {isa = PBXBuildFile; fileRef = D32BC5C013B96AAA0069C39F /* FacebookLikeView.html */; };
-		D32BC5DC13B96AAA0069C39F /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5C313B96AAA0069C39F /* Facebook.m */; settings = {COMPILER_FLAGS = "-w"; }; };
+		D32BC5DC13B96AAA0069C39F /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5C313B96AAA0069C39F /* Facebook.m */; settings = {COMPILER_FLAGS = "-w -fno-objc-arc"; }; };
 		D32BC5DD13B96AAA0069C39F /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D32BC5C513B96AAA0069C39F /* FBDialog.bundle */; };
-		D32BC5DE13B96AAA0069C39F /* FBDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5C713B96AAA0069C39F /* FBDialog.m */; settings = {COMPILER_FLAGS = "-w"; }; };
-		D32BC5DF13B96AAA0069C39F /* FBLoginDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5C913B96AAA0069C39F /* FBLoginDialog.m */; settings = {COMPILER_FLAGS = "-w"; }; };
-		D32BC5E013B96AAA0069C39F /* FBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5CB13B96AAA0069C39F /* FBRequest.m */; settings = {COMPILER_FLAGS = "-w"; }; };
-		D32BC5E113B96AAA0069C39F /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5CF13B96AAA0069C39F /* NSObject+SBJSON.m */; settings = {COMPILER_FLAGS = "-w"; }; };
-		D32BC5E213B96AAA0069C39F /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5D113B96AAA0069C39F /* NSString+SBJSON.m */; settings = {COMPILER_FLAGS = "-w"; }; };
-		D32BC5E313B96AAA0069C39F /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5D313B96AAA0069C39F /* SBJSON.m */; settings = {COMPILER_FLAGS = "-w"; }; };
-		D32BC5E413B96AAA0069C39F /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5D513B96AAA0069C39F /* SBJsonBase.m */; settings = {COMPILER_FLAGS = "-w"; }; };
-		D32BC5E513B96AAA0069C39F /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5D713B96AAA0069C39F /* SBJsonParser.m */; settings = {COMPILER_FLAGS = "-w"; }; };
-		D32BC5E613B96AAA0069C39F /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5D913B96AAA0069C39F /* SBJsonWriter.m */; settings = {COMPILER_FLAGS = "-w"; }; };
+		D32BC5DE13B96AAA0069C39F /* FBDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5C713B96AAA0069C39F /* FBDialog.m */; settings = {COMPILER_FLAGS = "-w -fno-objc-arc"; }; };
+		D32BC5DF13B96AAA0069C39F /* FBLoginDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5C913B96AAA0069C39F /* FBLoginDialog.m */; settings = {COMPILER_FLAGS = "-w -fno-objc-arc"; }; };
+		D32BC5E013B96AAA0069C39F /* FBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5CB13B96AAA0069C39F /* FBRequest.m */; settings = {COMPILER_FLAGS = "-w -fno-objc-arc"; }; };
+		D32BC5E113B96AAA0069C39F /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5CF13B96AAA0069C39F /* NSObject+SBJSON.m */; settings = {COMPILER_FLAGS = "-w -fno-objc-arc"; }; };
+		D32BC5E213B96AAA0069C39F /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5D113B96AAA0069C39F /* NSString+SBJSON.m */; settings = {COMPILER_FLAGS = "-w -fno-objc-arc"; }; };
+		D32BC5E313B96AAA0069C39F /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5D313B96AAA0069C39F /* SBJSON.m */; settings = {COMPILER_FLAGS = "-w -fno-objc-arc"; }; };
+		D32BC5E413B96AAA0069C39F /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5D513B96AAA0069C39F /* SBJsonBase.m */; settings = {COMPILER_FLAGS = "-w -fno-objc-arc"; }; };
+		D32BC5E513B96AAA0069C39F /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5D713B96AAA0069C39F /* SBJsonParser.m */; settings = {COMPILER_FLAGS = "-w -fno-objc-arc"; }; };
+		D32BC5E613B96AAA0069C39F /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BC5D913B96AAA0069C39F /* SBJsonWriter.m */; settings = {COMPILER_FLAGS = "-w -fno-objc-arc"; }; };
 		EA46D9B917EE4237001E32DC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA46D9B817EE4237001E32DC /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
@@ -370,6 +370,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -385,6 +386,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FacebookLikeViewDemo/FacebookLikeViewDemo-Prefix.pch";

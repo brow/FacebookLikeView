@@ -12,8 +12,8 @@
 
 @interface FacebookLikeViewDemoViewController () <FacebookLikeViewDelegate, FBSessionDelegate>
 
-@property (readonly) Facebook *facebook;
-@property (nonatomic, retain) IBOutlet FacebookLikeView *facebookLikeView;
+@property (nonatomic, strong) Facebook *facebook;
+@property (nonatomic, strong) IBOutlet FacebookLikeView *facebookLikeView;
 
 @end
 
@@ -21,17 +21,11 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
-        _facebook = [[Facebook alloc] initWithAppId:@"158575400878173" andDelegate:self];
+        self.facebook = [[Facebook alloc] initWithAppId:@"158575400878173" andDelegate:self];
     }
     return self;
 }
 
-- (void)dealloc
-{
-    [_facebook release];
-    [_facebookLikeView release];
-    [super dealloc];
-}
 
 #pragma mark FBSessionDelegate
 
@@ -59,20 +53,20 @@
 }
 
 - (void)facebookLikeViewDidLike:(FacebookLikeView *)aFacebookLikeView {
-    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Liked"
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Liked"
                                                      message:@"You liked Yardsellr. Thanks!"
                                                     delegate:self 
                                            cancelButtonTitle:@"OK"
-                                           otherButtonTitles:nil] autorelease];
+                                           otherButtonTitles:nil];
     [alert show];
 }
 
 - (void)facebookLikeViewDidUnlike:(FacebookLikeView *)aFacebookLikeView {
-    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Unliked"
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unliked"
                                                      message:@"You unliked Yardsellr. Where's the love?"
                                                     delegate:self 
                                            cancelButtonTitle:@"OK"
-                                           otherButtonTitles:nil] autorelease];
+                                           otherButtonTitles:nil];
     [alert show];
 }
 

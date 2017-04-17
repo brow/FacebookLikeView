@@ -1,4 +1,4 @@
-#FacebookLikeView
+# FacebookLikeView
 
 FacebookLikeView is a Facebook Like button for native iOS apps.
 
@@ -13,7 +13,7 @@ via Safari or the Facebook app.
 To see FacebookLikeView in action, build the included `FacebookLikeViewDemo`
 project.
 
-##Getting started
+## Getting started
 
 1. If you haven't already installed the Facebook iOS SDK, add the files in the
    `FBConnect` directory to your Xcode project.
@@ -46,7 +46,7 @@ project.
    should also call this method any time the user signs in or out of Facebook,
    and after modifying any of the FacebookLikeView's properties.
 
-##More delegate methods
+## More delegate methods
 
 You may want to be notified when the Like button is used. In that case,
 implement these optional FacebookLikeViewDelegate methods:
@@ -59,7 +59,7 @@ the FacebookLikeView until this delegate method is called:
 
     - (void)facebookLikeViewDidRender:(FacebookLikeView *)aFacebookLikeView;
     
-##How it works
+## How it works
 
 FacebookLikeView uses a web view to host the same Like button XFBML as would be
 used on a web page. 
@@ -80,7 +80,7 @@ one of those events fires, a bit of JavaScript running inside the web view
 encodes the event into a URL request that is intercepted by native code, which
 then calls the appropriate delegate method.
 
-##Caveats
+## Caveats
 
 FacebookLikeView is not supported by Facebook and is subject to break when
 changes are made in the Like button's implementation.
